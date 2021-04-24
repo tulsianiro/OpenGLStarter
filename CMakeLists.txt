@@ -1,5 +1,5 @@
 # Project definition
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.14)
 project(OpenGLStarter)
 
 # Source files
@@ -38,3 +38,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE "${STB_IMAGE_DIR}")
 set(GLM_DIR "${LIB_DIR}/glm")
 target_include_directories(${PROJECT_NAME} PRIVATE "${GLM_DIR}")
 
+# copy assets folder over
+set (data_src "${CMAKE_SOURCE_DIR}/resources")
+set (data_dst "${CMAKE_CURRENT_BINARY_DIR}/resources")
+add_custom_command(
+	TARGET ${PROJECT_NAME} POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E create_symlink ${data_src} ${data_dst})
